@@ -87,11 +87,14 @@ export function createProject(rawInput) {
   rejectSourceSymlinks(path.join(templateRoot, 'base'))
   rejectSourceSymlinks(path.join(templateRoot, 'core'))
   rejectSourceSymlinks(path.join(templateRoot, 'feature'))
+  rejectSourceSymlinks(path.join(templateRoot, 'vue-shared'))
   rejectSourceSymlinks(path.join(templateRoot, input.template))
   rejectSourceSymlinks(path.resolve(import.meta.dirname, '..', 'docs', 'principles'))
   const temporary = mkdtempSync(path.join(parent, `.${path.basename(input.destination)}-`))
   try {
     cpSync(path.join(templateRoot, 'base'), temporary, { recursive: true })
+    if (input.template === 'vue' || input.template === 'fullstack')
+      cpSync(path.join(templateRoot, 'vue-shared'), temporary, { recursive: true })
     cpSync(path.join(templateRoot, input.template), temporary, { recursive: true })
     cpSync(
       path.resolve(import.meta.dirname, '..', 'docs', 'principles'),

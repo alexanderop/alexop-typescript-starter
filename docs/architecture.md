@@ -7,3 +7,5 @@ The root package is maintainer tooling. It must not acquire DOM, Vue, or browser
 Fullstack ownership is explicit. `apps/web` may import contracts but not `apps/api`. `packages/contracts` has no package dependencies and may not import runtime or framework modules. ESLint and the workspace check enforce these boundaries.
 
 `templates/core` supplies pure Result helpers and narrowly scoped exception adapters. Generation copies these to `src/shared/core` or the fullstack `packages/core/src`. `templates/feature` supplies a tested feature with separate core and shell; every output carries [feature architecture guidance](../templates/base/docs/functional-core.md).
+
+`templates/vue-shared` contains the Vue naming guide and ESLint style rules copied only into the Vue and fullstack profiles. Their scoped agent instructions link to the generated guide.

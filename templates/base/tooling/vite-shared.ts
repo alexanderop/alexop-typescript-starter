@@ -80,5 +80,6 @@ export const sharedFormat = {
   singleQuote: true,
   semi: false,
   sortPackageJson: true,
+  singleAttributePerLine: true,
 } satisfies NonNullable<UserConfig['fmt']>
 import type { UserConfig } from 'vite-plus'

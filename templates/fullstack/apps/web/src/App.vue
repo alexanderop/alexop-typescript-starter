@@ -20,6 +20,11 @@ onMounted(checkHealth)
     <p class="eyebrow">Fullstack starter</p>
     <h1>Browser to API, proven.</h1>
     <p role="status">{{ status }}</p>
-    <button type="button" @click="checkHealth">Retry API</button>
+    <button
+      type="button"
+      @click="checkHealth"
+    >
+      Retry API
+    </button>
   </main>
 </template>

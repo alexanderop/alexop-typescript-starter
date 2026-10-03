@@ -1,4 +1,5 @@
 import vue from 'eslint-plugin-vue'
+import { vueStyle } from './tooling/eslint/vue-style.mjs'
 import tseslint from 'typescript-eslint'
 
 import { architectureRule } from './tooling/eslint/feature-boundaries.mjs'
@@ -36,4 +37,5 @@ export default [
     },
   },
   { files: ['**/*.ts'], languageOptions: { parser: tseslint.parser } },
+  ...vueStyle,
 ]
