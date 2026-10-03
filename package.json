@@ -1,0 +1,54 @@
+{
+  "name": "alexop-frontend-starter",
+  "version": "0.1.0",
+  "private": true,
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "dev": "vp dev --host 127.0.0.1 --port 5173 --strictPort",
+    "build": "vp build",
+    "preview": "vp preview --host 127.0.0.1 --port 4173 --strictPort",
+    "lint": "vp lint --deny-warnings . && eslint --max-warnings 0 .",
+    "lint:fix": "vp lint --fix . && eslint --fix .",
+    "format": "vp fmt --write .",
+    "format:check": "vp fmt --check .",
+    "typecheck": "vue-tsc -b",
+    "check:docs": "node tooling/check-docs.mjs",
+    "check": "vp run check:all",
+    "test": "vp test run",
+    "test:unit": "vp test run --project unit",
+    "test:rules": "node tooling/run-rule-tests.mjs && node tooling/prove-lint.mjs",
+    "test:browser": "vp test run --project browser",
+    "test:e2e": "playwright test",
+    "verify": "vp run verify:all",
+    "verify:template": "node tooling/verify-template.mjs"
+  },
+  "dependencies": {
+    "vue": "3.5.43"
+  },
+  "devDependencies": {
+    "@oxlint/plugins": "1.79.0",
+    "@playwright/test": "1.63.0",
+    "@tailwindcss/vite": "4.3.3",
+    "@types/node": "24.13.6",
+    "@vitejs/plugin-vue": "6.0.9",
+    "@vitest/browser-playwright": "5.0.1",
+    "eslint": "10.12.0",
+    "eslint-plugin-vue": "10.11.1",
+    "oxlint": "1.85.0",
+    "tailwindcss": "4.3.3",
+    "typescript": "6.0.3",
+    "typescript-eslint": "8.71.0",
+    "vite": "npm:@voidzero-dev/vite-plus-core@1.0.0",
+    "vite-plus": "1.0.0",
+    "vitest": "5.0.1",
+    "vitest-browser-vue": "3.1.0",
+    "vue-eslint-parser": "10.4.1",
+    "vue-tsc": "3.3.12"
+  },
+  "engines": {
+    "node": ">=22.12.0",
+    "pnpm": ">=10"
+  },
+  "packageManager": "pnpm@10.28.2"
+}

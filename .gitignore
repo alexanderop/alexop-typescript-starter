@@ -1,0 +1,9 @@
+node_modules/
+dist/
+playwright-report/
+test-results/
+.vitest/
+.vite-plus/
+*.tsbuildinfo
+tooling/.lint-proof-*/
+.DS_Store
