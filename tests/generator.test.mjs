@@ -28,6 +28,10 @@ test.each(templateIds)('creates a standalone %s project from base and overlay', 
   expect(readFileSync(path.join(destination, 'package.json'), 'utf8')).toContain('example-project')
   expect(existsSync(path.join(destination, 'tooling/oxlint/anti-slop/LICENSE'))).toBe(true)
   expect(existsSync(path.join(destination, 'docs/principles/index.md'))).toBe(true)
+  const core = template === 'fullstack' ? 'packages/core/src' : 'src/shared/core'
+  expect(readFileSync(path.join(destination, core, 'result.ts'), 'utf8')).toContain(
+    'export type Result',
+  )
 })
 test('rejects invalid input before writing', () => {
   const destination = path.join(temporaryRoot(), 'project')

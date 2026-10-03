@@ -85,6 +85,8 @@ export function createProject(rawInput) {
   const parent = path.dirname(input.destination)
   mkdirSync(parent, { recursive: true })
   rejectSourceSymlinks(path.join(templateRoot, 'base'))
+  rejectSourceSymlinks(path.join(templateRoot, 'core'))
+  rejectSourceSymlinks(path.join(templateRoot, 'feature'))
   rejectSourceSymlinks(path.join(templateRoot, input.template))
   rejectSourceSymlinks(path.resolve(import.meta.dirname, '..', 'docs', 'principles'))
   const temporary = mkdtempSync(path.join(parent, `.${path.basename(input.destination)}-`))
@@ -96,6 +98,9 @@ export function createProject(rawInput) {
       path.join(temporary, 'docs', 'principles'),
       { recursive: true },
     )
+    const corePath = input.template === 'fullstack' ? 'packages/core/src' : 'src/shared/core'
+    cpSync(path.join(templateRoot, 'core'), path.join(temporary, corePath), { recursive: true })
+    copyExampleFeature(temporary, input.template)
     applyProjectName(temporary, input.name)
     renameSync(temporary, input.destination)
   } catch (error) {
@@ -103,4 +108,26 @@ export function createProject(rawInput) {
     throw error
   }
   return input.destination
+}
+
+/** @param {string} root @param {TemplateId} template */
+function copyExampleFeature(root, template) {
+  const fullstack = template === 'fullstack'
+  const destination = path.join(
+    root,
+    fullstack ? 'apps/api/src/features/greeting' : 'src/features/greeting',
+  )
+  cpSync(path.join(templateRoot, 'feature'), destination, { recursive: true })
+  for (const relative of readdirSync(destination, { recursive: true })) {
+    if (typeof relative !== 'string') continue
+    const filename = path.join(destination, relative)
+    if (!lstatSync(filename).isFile()) continue
+    writeFileSync(
+      filename,
+      readFileSync(filename, 'utf8').replaceAll(
+        '__CORE_MODULE__',
+        fullstack ? '@workspace/core' : '../../../shared/core/index.js',
+      ),
+    )
+  }
 }

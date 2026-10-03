@@ -14,6 +14,41 @@ export function createSharedLint(pluginSpecifier = './tooling/oxlint/anti-slop/i
     ],
     overrides: [
       {
+        files: ['**/features/*/core/**/*.ts'],
+        rules: {
+          'no-restricted-imports': [
+            'error',
+            {
+              patterns: [
+                {
+                  group: ['node:*', 'vue', 'vue/*', 'react', 'react/*', '**/shell/**'],
+                  message: 'Keep I/O and framework dependencies in the feature shell.',
+                },
+              ],
+            },
+          ],
+          'no-restricted-globals': [
+            'error',
+            'fetch',
+            'window',
+            'document',
+            'localStorage',
+            'process',
+            'Date',
+            'setTimeout',
+            'setInterval',
+          ],
+          'no-restricted-properties': [
+            'error',
+            {
+              object: 'Math',
+              property: 'random',
+              message: 'Pass randomness into the functional core as a value.',
+            },
+          ],
+        },
+      },
+      {
         files: [
           'tooling/check-docs.mjs',
           'tooling/eslint/feature-boundaries.mjs',

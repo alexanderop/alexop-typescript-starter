@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@workspace/contracts": "workspace:*",
+    "@workspace/core": "workspace:*",
     "vue": "3.5.43"
   }
 }

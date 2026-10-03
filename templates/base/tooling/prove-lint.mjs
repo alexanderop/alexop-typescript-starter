@@ -1,5 +1,5 @@
 import { spawnSync } from 'node:child_process'
-import { mkdtempSync, rmSync, writeFileSync } from 'node:fs'
+import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs'
 import path from 'node:path'
 
 const root = path.resolve(import.meta.dirname, '..')
@@ -23,6 +23,30 @@ const fixtureRoot = mkdtempSync(path.join(root, 'tooling', '.lint-proof-'))
 
 /** @type {LintProof[]} */
 const proofs = [
+  {
+    kind: 'accept',
+    file: 'features/demo/core/pure.ts',
+    ruleId: 'eslint/no-restricted-globals',
+    fixture: 'export const double = (value: number) => value * 2\n',
+  },
+  {
+    kind: 'reject',
+    file: 'features/demo/core/io.ts',
+    ruleId: 'eslint/no-restricted-imports',
+    fixture: "import 'node:fs'\n",
+  },
+  {
+    kind: 'reject',
+    file: 'features/demo/core/time.ts',
+    ruleId: 'eslint/no-restricted-globals',
+    fixture: 'export const now = Date.now()\n',
+  },
+  {
+    kind: 'reject',
+    file: 'features/demo/core/random.ts',
+    ruleId: 'eslint/no-restricted-properties',
+    fixture: 'export const random = Math.random()\n',
+  },
   {
     kind: 'accept',
     file: 'chained.valid.ts',
@@ -92,6 +116,7 @@ const proofs = [
 
 function proveLint(proof) {
   const filename = path.join(fixtureRoot, proof.file)
+  mkdirSync(path.dirname(filename), { recursive: true })
   writeFileSync(filename, proof.fixture)
   const result = spawnSync('pnpm', ['exec', 'vp', 'lint', '--deny-warnings', filename], {
     cwd: root,

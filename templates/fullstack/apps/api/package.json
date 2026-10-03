@@ -9,6 +9,7 @@
     "start": "node dist/main.js"
   },
   "dependencies": {
-    "@workspace/contracts": "workspace:*"
+    "@workspace/contracts": "workspace:*",
+    "@workspace/core": "workspace:*"
   }
 }

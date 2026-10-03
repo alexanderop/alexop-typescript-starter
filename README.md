@@ -19,3 +19,5 @@ Use the pinned Node 22.22.3 and pnpm 10 (or a version allowed by `engines.node`)
 The [principles](./docs/principles/index.md) cover domain modeling, boundaries, types, readability, behavior tests, verification, and turning recurring lessons into checks. They are adapted from pstack, with pinned [upstream attribution and licensing](./docs/principles/UPSTREAM.md), and copied into every generated project.
 
 Run `pnpm verify` for the maintainer code. Run `pnpm verify:templates` to generate, install with frozen lockfiles, and verify every profile in isolation. Read [AGENTS.md](./AGENTS.md) and the [kit architecture](./docs/architecture.md) before changing composition.
+
+Every generated project includes small `Result<T, E>` helpers and a tested feature organized into a functional `core/` and imperative `shell/`. Expected errors are tagged values; shells receive dependencies through functions or factories. See the [architecture and DI guide](./templates/base/docs/functional-core.md).

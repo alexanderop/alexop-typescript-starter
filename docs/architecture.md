@@ -5,3 +5,5 @@
 The root package is maintainer tooling. It must not acquire DOM, Vue, or browser assumptions. Only Vue-containing overlays carry Vue, `vue-tsc`, Tailwind, browser, and Playwright dependencies.
 
 Fullstack ownership is explicit. `apps/web` may import contracts but not `apps/api`. `packages/contracts` has no package dependencies and may not import runtime or framework modules. ESLint and the workspace check enforce these boundaries.
+
+`templates/core` supplies pure Result helpers and narrowly scoped exception adapters. Generation copies these to `src/shared/core` or the fullstack `packages/core/src`. `templates/feature` supplies a tested feature with separate core and shell; every output carries [feature architecture guidance](../templates/base/docs/functional-core.md).

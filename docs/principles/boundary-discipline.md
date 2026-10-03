@@ -7,18 +7,23 @@ a CLI, a browser event, or a public library API.
 
 Accept unknown input and turn it into a domain value or an explicit error.
 Keep transport details in adapters. Give domain functions the values they need,
-with dependencies passed explicitly when behavior requires I/O.
+with dependencies passed explicitly when behavior requires I/O. Return typed errors
+for expected failures. Translate thrown third-party errors in a narrow adapter;
+do not blanket-catch business logic or silently turn defects into expected failures.
 
 ```ts
-function parseRetryCount(input: unknown): number {
+type RetryCountResult =
+  | { readonly ok: true; readonly value: number }
+  | { readonly ok: false; readonly error: { readonly kind: 'invalid-retry-count' } }
+
+function parseRetryCount(input: unknown): RetryCountResult {
   if (typeof input !== 'number' || !Number.isInteger(input) || input < 0) {
-    throw new Error('Retry count must be a nonnegative integer')
+    return { ok: false, error: { kind: 'invalid-retry-count' } }
   }
-  return input
+  return { ok: true, value: input }
 }
 
-const payload: unknown = JSON.parse('3')
-const retryCount = parseRetryCount(payload)
+const retryCount = parseRetryCount(3)
 ```
 
 Use the project's schema library when several fields or reusable schemas make

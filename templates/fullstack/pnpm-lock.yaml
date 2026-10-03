@@ -66,17 +66,25 @@ importers:
       '@workspace/contracts':
         specifier: workspace:*
         version: link:../../packages/contracts
+      '@workspace/core':
+        specifier: workspace:*
+        version: link:../../packages/core
 
   apps/web:
     dependencies:
       '@workspace/contracts':
         specifier: workspace:*
         version: link:../../packages/contracts
+      '@workspace/core':
+        specifier: workspace:*
+        version: link:../../packages/core
       vue:
         specifier: 3.5.43
         version: 3.5.43(typescript@6.0.3)
 
   packages/contracts: {}
+
+  packages/core: {}
 
 packages:
 

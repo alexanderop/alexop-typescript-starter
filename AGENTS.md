@@ -13,3 +13,5 @@ Use these principles when the task triggers them:
 - Turn repeated guidance into checks with [encode lessons in structure](./docs/principles/encode-lessons-in-structure.md).
 
 Read [architecture](./docs/architecture.md), [testing](./docs/testing.md), and [linting](./docs/linting.md) before changing those systems. Run `pnpm check` while working, `pnpm verify` before handoff, and `pnpm verify:templates` after changing generated output.
+
+Generated projects use feature-based functional core / imperative shell architecture. Preserve the small Result helpers in `templates/core` and the injected example in `templates/feature`; see [the generated architecture guide](./templates/base/docs/functional-core.md).
