@@ -1,0 +1,37 @@
+{
+  "name": "__PROJECT_NAME__",
+  "version": "0.1.0",
+  "private": true,
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "dev": "node --experimental-strip-types src/main.ts",
+    "build": "tsc -p tsconfig.build.json",
+    "start": "node dist/main.js",
+    "lint": "vp lint --deny-warnings .",
+    "format": "vp fmt --write .",
+    "format:check": "vp fmt --check .",
+    "typecheck": "tsc -p tsconfig.json",
+    "check:docs": "node tooling/check-docs.mjs",
+    "check": "pnpm lint && pnpm format:check && pnpm typecheck && pnpm check:docs",
+    "test": "vp test run",
+    "test:unit": "vp test run",
+    "test:rules": "node tooling/run-rule-tests.mjs && node tooling/prove-lint.mjs",
+    "test:built": "node tooling/verify-built-server.mjs",
+    "verify": "pnpm check && pnpm test:rules && pnpm test:unit && pnpm build && pnpm test:built"
+  },
+  "devDependencies": {
+    "@oxlint/plugins": "1.79.0",
+    "@types/node": "24.13.6",
+    "oxlint": "1.85.0",
+    "typescript": "6.0.3",
+    "vite": "npm:@voidzero-dev/vite-plus-core@1.0.0",
+    "vite-plus": "1.0.0",
+    "vitest": "5.0.1"
+  },
+  "engines": {
+    "node": ">=22.12.0",
+    "pnpm": ">=10"
+  },
+  "packageManager": "pnpm@10.28.2"
+}

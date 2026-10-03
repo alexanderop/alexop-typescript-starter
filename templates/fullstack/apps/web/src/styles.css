@@ -1,0 +1,36 @@
+@import 'tailwindcss';
+:root {
+  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+  color: #24211d;
+  background: #f3efe7;
+}
+body {
+  margin: 0;
+}
+main {
+  width: min(720px, calc(100% - 40px));
+  margin: 0 auto;
+  padding: 18vh 0;
+}
+.eyebrow {
+  color: #315f55;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+h1 {
+  max-width: 650px;
+  margin: 18px 0;
+  font-family: Georgia, serif;
+  font-size: clamp(3rem, 9vw, 6.5rem);
+  line-height: 0.92;
+}
+button {
+  padding: 10px 16px;
+  border: 0;
+  border-radius: 8px;
+  color: white;
+  background: #315f55;
+  font: inherit;
+  cursor: pointer;
+}

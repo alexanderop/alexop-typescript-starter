@@ -1,0 +1,46 @@
+{
+  "name": "__PROJECT_NAME__",
+  "version": "0.1.0",
+  "private": true,
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "dev": "pnpm --filter @workspace/contracts build && pnpm --parallel --filter @workspace/api --filter @workspace/web dev",
+    "build": "pnpm --filter @workspace/contracts build && pnpm --filter @workspace/api build && pnpm --filter @workspace/web build",
+    "lint": "vp lint --deny-warnings . && eslint --max-warnings 0 .",
+    "format": "vp fmt --write .",
+    "format:check": "vp fmt --check .",
+    "typecheck": "tsc -b && vue-tsc -b apps/web/tsconfig.json",
+    "check:docs": "node tooling/check-docs.mjs",
+    "check:boundaries": "node tooling/check-workspace-boundaries.mjs",
+    "check": "pnpm lint && pnpm format:check && pnpm typecheck && pnpm check:docs && pnpm check:boundaries",
+    "test": "vp test run",
+    "test:unit": "vp test run",
+    "test:rules": "node tooling/run-rule-tests.mjs && node tooling/prove-lint.mjs",
+    "test:e2e": "playwright test",
+    "verify": "pnpm check && pnpm test:rules && pnpm test:unit && pnpm build && pnpm test:e2e"
+  },
+  "devDependencies": {
+    "@oxlint/plugins": "1.79.0",
+    "@playwright/test": "1.63.0",
+    "@tailwindcss/vite": "4.3.3",
+    "@types/node": "24.13.6",
+    "@vitejs/plugin-vue": "6.0.9",
+    "eslint": "10.12.0",
+    "eslint-plugin-vue": "10.11.1",
+    "oxlint": "1.85.0",
+    "tailwindcss": "4.3.3",
+    "typescript": "6.0.3",
+    "typescript-eslint": "8.71.0",
+    "vite": "npm:@voidzero-dev/vite-plus-core@1.0.0",
+    "vite-plus": "1.0.0",
+    "vitest": "5.0.1",
+    "vue-eslint-parser": "10.4.1",
+    "vue-tsc": "3.3.12"
+  },
+  "engines": {
+    "node": ">=22.12.0",
+    "pnpm": ">=10"
+  },
+  "packageManager": "pnpm@10.28.2"
+}

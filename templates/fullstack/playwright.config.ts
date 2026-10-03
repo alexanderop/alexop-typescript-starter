@@ -1,0 +1,18 @@
+import { defineConfig, devices } from '@playwright/test'
+export default defineConfig({
+  testDir: './tests/e2e',
+  use: { baseURL: 'http://127.0.0.1:4173', trace: 'on-first-retry' },
+  projects: [{ name: 'chromium', use: { ...devices['Desktop Chrome'] } }],
+  webServer: [
+    {
+      command: 'PORT=4310 pnpm --filter @workspace/api start',
+      url: 'http://127.0.0.1:4310/health',
+      reuseExistingServer: false,
+    },
+    {
+      command: 'pnpm --filter @workspace/web preview',
+      url: 'http://127.0.0.1:4173',
+      reuseExistingServer: false,
+    },
+  ],
+})

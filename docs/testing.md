@@ -1,11 +1,5 @@
-# Testing behavior
+# Testing the kit
 
-Write the observable scenario before choosing a runner. Use Given, When, and Then to name the starting state, the action, and the result.
+Generator tests call the public creation API and inspect observable filesystem results. They cover all profiles, invalid input, existing targets, and symlink collisions.
 
-- Put pure TypeScript tests next to their source as `*.test.ts`. Run them with `pnpm test:unit`.
-- Put Vue interaction tests in `tests/browser/`. Vitest Browser Mode runs them in Chromium with production browser APIs.
-- Put built-application journeys in `tests/e2e/`. Playwright starts the production preview and covers startup plus application boundaries.
-
-Use semantic locators such as roles, names, and labels. Test keyboard behavior for interactive controls. Assert what a user can observe. Do not inspect private component state.
-
-`pnpm test` runs both Vitest projects. `pnpm verify` also builds the application and runs Playwright against that build.
+`pnpm verify:templates` is the release proof. It generates all four profiles into a temporary directory, strips the maintainer checkout from the environment, performs frozen installs, and runs each consumer's `pnpm verify`. Node tests bind a real ephemeral HTTP port. Vue uses Browser Mode and a built preview. Fullstack starts its built API plus built web preview and observes the API response in Chromium.

@@ -1,23 +1,7 @@
-# Application architecture
+# Starter kit architecture
 
-`src/App.vue` and `src/main.ts` own application composition. A feature lives in `src/features/<feature>/` and exposes its public API through `index.ts`. Code outside a feature must import that entry point.
+`src/templates.mjs` owns the `typescript | node | vue | fullstack` registry and safe filesystem transaction. Each output is a deterministic composition of `templates/base` plus one profile overlay. Common lint, formatting, docs checking, vendored rule source, and agent guidance live once in the base. Root `docs/principles` is canonical and copied verbatim during generation.
 
-Feature internals can import files in the same feature and `src/shared/`. A feature cannot import another feature or application composition. Shared code cannot import a feature or application composition. The ESLint rule in `tooling/eslint/feature-boundaries.mjs` checks static imports, re-exports, dynamic imports, aliases, and Vite globs.
+The root package is maintainer tooling. It must not acquire DOM, Vue, or browser assumptions. Only Vue-containing overlays carry Vue, `vue-tsc`, Tailwind, browser, and Playwright dependencies.
 
-Start a new feature with the smallest files its behavior needs:
-
-```text
-src/features/search/
-  index.ts
-  SearchPanel.vue
-```
-
-Import the entry point from application composition:
-
-```ts
-import { SearchPanel } from '@/features/search'
-```
-
-Keep browser adapters near the feature that owns them. Move code to `src/shared/` only when at least two features use the same domain-independent behavior.
-
-The starter is a template instead of a package. Each application owns and can edit its rules without a preset release or peer-dependency contract. Extract a package after multiple applications require the same stable policy.
+Fullstack ownership is explicit. `apps/web` may import contracts but not `apps/api`. `packages/contracts` has no package dependencies and may not import runtime or framework modules. ESLint and the workspace check enforce these boundaries.
